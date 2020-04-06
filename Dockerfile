@@ -14,4 +14,6 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-install intl \
 	&& docker-php-ext-install bz2 \
 	&& docker-php-ext-install exif \
-	&& docker-php-ext-install gmp \
+	&& docker-php-ext-install gmp
+
+VOLUME /usr/local/etc/
