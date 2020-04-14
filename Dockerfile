@@ -8,9 +8,8 @@ RUN apt-get update && apt-get install -y \
 	libbz2-dev \
 	exif \
 	libgmp-dev \
-	&& apt-get clean
-
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr \
+	&& apt-get clean \
+	&& docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr \
 	&& docker-php-ext-install -j$(nproc) gd \
 	&& docker-php-ext-configure intl \
 	&& docker-php-ext-install intl \
