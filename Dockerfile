@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-install gmp \
 	&& docker-php-ext-install pdo_mysql \
 	&& docker-php-ext-install mysqli \
-	&& docker-php-ext-enable pdo_mysql
+	&& docker-php-ext-enable pdo_mysql \
+	&& docker-php-ext-install zip
 
 VOLUME /usr/local/etc
