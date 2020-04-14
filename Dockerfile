@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
 	libpng-dev \
 	libicu-dev \
 	libbz2-dev \
+	libzip-dev \
 	exif \
 	libgmp-dev \
 	&& apt-get clean \
@@ -15,6 +16,9 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-install intl \
 	&& docker-php-ext-install bz2 \
 	&& docker-php-ext-install exif \
-	&& docker-php-ext-install gmp
+	&& docker-php-ext-install gmp \
+	&& docker-php-ext-install pdo_mysql \
+	&& docker-php-ext-install mysqli \
+	&& docker-php-ext-enable pdo_mysql
 
-VOLUME /usr/local/etc/
+VOLUME /usr/local/etc
