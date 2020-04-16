@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
 	libgmp-dev \
 	&& apt-get clean \
 	&& cp /usr/local/etc/php/php.ini-production $PHP_INI_DIR/php.ini \
+	&& pecl config-set php_ini $PHP_INI_DIR \
 	&& docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr \
 	&& docker-php-ext-install -j$(nproc) gd \
 	&& docker-php-ext-configure intl \
@@ -27,9 +28,10 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-install zip \
 	&& tar xzf /tmp/${PHPREDIS_VERSION}.tar.gz -C /tmp/ \
   && rm -r /tmp/${PHPREDIS_VERSION}.tar.gz \
-	&& mkdir -p /usr/src/php/ext \
+	&& mkdir -p /usr/src/php/ext /www \
 	&& mv /tmp/phpredis-${PHPREDIS_VERSION} /usr/src/php/ext/redis \
   && docker-php-ext-install redis \
-	&& pecl install apcu
+	&& pecl install apcu \
+	&& sed -i 's#;chroot =#chroot = /www#' /usr/local/etc/php-fpm.d/www.conf
 
-VOLUME /usr/local/etc /var/www/html
+VOLUME /usr/local/etc /www
