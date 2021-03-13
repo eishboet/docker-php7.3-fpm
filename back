@@ -1,5 +1,4 @@
 FROM php:7.3-fpm
-LABEL maintainer="Deanen Perumal"
 ENV DEBIAN_FRONTEND=noninteractive
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && apt-get update && apt-get -y upgrade && apt-get install -yqq \
@@ -22,10 +21,9 @@ libgmp-dev \
 libsmbclient \
 libsmbclient-dev \
 imagemagick \
-libmagickwand-dev \
 libbz2-dev \
+libmcrypt-dev \
 libmemcached-dev \
-zlib1g-dev \
 && apt-get -yqq clean \
 && docker-php-ext-configure gd --with-freetype-dir=/usr/lib --with-jpeg-dir=/usr/lib --with-png-dir=/usr/lib --with-webp-dir=/usr/lib \
 && docker-php-ext-install -j$(nproc) gd \
@@ -43,11 +41,8 @@ zlib1g-dev \
 && docker-php-ext-install pcntl \
 && pecl install redis-5.3.3 \
 && pecl install smbclient \
+&& pecl install mcrypt \
 && pecl install imagick \
-&& pecl install apcu \
-&& pecl install memcached-3.1.4 \
-&& docker-php-ext-enable redis smbclient imagick apcu memcached
+&& pecl installl apcu \
+&& docker-php-ext-enable redis smbclient mycrypt imagick apcu memcached
 VOLUME /usr/local/etc/
-STOPSIGNAL SIGQUIT
-EXPOSE 9000
-CMD ["php-fpm"]
