@@ -46,8 +46,10 @@ zlib1g-dev \
 && pecl install imagick \
 && pecl install apcu \
 && pecl install memcached-3.1.4 \
-&& docker-php-ext-enable redis smbclient imagick apcu memcached
-VOLUME /usr/local/etc/
+&& docker-php-ext-enable redis smbclient imagick apcu memcached \
+&& mkdir -p /config
+&& ln -s /config/* /usr/local/etc/
+VOLUME /config
 STOPSIGNAL SIGQUIT
 EXPOSE 9000
 CMD ["php-fpm"]
