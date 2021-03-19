@@ -47,9 +47,8 @@ zlib1g-dev \
 && pecl install apcu \
 && pecl install memcached-3.1.4 \
 && docker-php-ext-enable redis smbclient imagick apcu memcached \
-&& mkdir -p /config
-COPY defaults/ /config/
-RUN ln -s /config/* /usr/local/etc/
+&& mkdir -p /config \
+&& ln -s /usr/local/etc/* /config/
 VOLUME /config
 STOPSIGNAL SIGQUIT
 EXPOSE 9000
